@@ -1,0 +1,91 @@
+body {
+	background-color: #efefef;	
+}
+
+
+@font-face {
+	font-family: CoHeadline Reg;
+	src: url('../fonts/CoHeadline_Trial_Rg.ttf');
+}
+
+@font-face {
+	font-family: Questrial;
+	src: url('../fonts/Questrial-Regular.otf');
+}
+
+h1  {
+	font-family: Questrial, sans-serif; 
+	list-style: none;
+	color: #FFF;
+	margin: 0; !important
+}
+
+h2 {
+	font-family: CoHeadline Reg, sans-serif; 
+	list-style: none;
+	margin: 0; !important
+}
+
+
+.jumbo-header {
+	background-color: #F7A42C;
+	width: 100%; !important
+	height: auto;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.label-bg {
+	background-color: #FFF;
+	width: 100%; !important
+	height: auto;
+	padding: 30px; !important
+}
+
+
+
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+.form-signin .checkbox {
+	font-weight: normal;
+}
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+	
+}
+.form-signin .top-element {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.form-signin .bottom-element {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.form-signin .middle-element {
+	margin-bottom: -1px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}

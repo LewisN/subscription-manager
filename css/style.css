@@ -2,55 +2,172 @@ body {
 	background-color: #efefef;	
 }
 
-
-@font-face {
-	font-family: CoHeadline Reg;
-	src: url('../fonts/CoHeadline_Trial_Rg.ttf');
-}
-
 @font-face {
 	font-family: Questrial;
 	src: url('../fonts/Questrial-Regular.otf');
 }
 
-h1  {
+@font-face {
+	font-family: SourceSansReg;
+	src: url('../fonts/SourceSansPro-Regular.otf');
+}
+
+@font-face {
+	font-family: SourceSansBold;
+	src: url('../fonts/SourceSansPro-Bold.otf');
+}
+
+p, a {
+	font-family: SourceSansReg, sans-serif;
+	margin: 0;
+}
+
+div.nav nav.right a p.navtext {
+	font-family: CoText Reg, sans-serif; !important
+	letter-spacing: 6px; !important !important
+	text-decoration: underline;
+}
+
+a {
+	color: #545454;
+}
+
+a:hover {
+	color: #F7941E;	
+	text-decoration: none;
+	-webkit-transition: color ease-in 0.2s;
+	-moz-transition: color ease-in 0.2s;
+	-o-transition: color ease-in 0.2s;
+	transition: color ease-in 0.2s;
+}
+
+h3  {
 	font-family: Questrial, sans-serif; 
-	list-style: none;
 	color: #FFF;
-	margin: 0; !important
+	letter-spacing: 5px; !important
 }
 
-h2 {
-	font-family: CoHeadline Reg, sans-serif; 
+h4 {
+	font-family: SourceSansReg, sans-serif; 
 	list-style: none;
 	margin: 0; !important
+	font-size: 10px; !important
 }
 
+h3 small {
+	color: #FFF;	
+	opacity: 0.7;
+}
+
+.main-container {
+	max-width: 800px;
+	margin: 0 auto;
+	width: 100%; !important
+}
+
+.inline {
+	display: inline-block;
+}
+
+.main-nav {
+	width: 100%;
+	height: 20px;
+	padding: 10px;
+	letter-spacing: 2px;
+	font-family: CoText Reg;
+	font-size: 0.85em
+}
+
+.nav {
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+}
+
+.nav-bottom-fixed > li {
+	text-align: center;
+}
+.nav-bottom-fixed > li > a {
+}
+.nav-bottom-fixed > li + li {
+	margin-left: 2px;
+}
+.nav-bottom-fixed > li.active > a,
+.nav-bottom-fixed > li.active > a:hover,
+.nav-bottom-fixed > li.active > a:focus {
+	color: #fff;
+	background-color: #000;
+	padding: 20px;
+}
+
+
+.list-group {
+	padding-left: 0;
+	margin-bottom: 20px;
+}
+.list-group-item {
+	color: #FFF; !important
+	background: none;
+	border: none; 
+	border-bottom: 2px solid #BCBCBC;	
+	font-family: SourceSansBold, sans-serif; 
+	font-size: 20px; !important
+}
+
+.list-group-item:last-child {
+	margin-bottom: 10%;
+	border: none; !important
+}
+
+
+
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+.vertical-center {
+	min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+	min-height: 100vh; /* These two lines are counted as one :-)       */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
 .jumbo-header {
-	background-color: #F7A42C;
+	background: -webkit-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
+	background: -o-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
+	background: -moz-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
+	background: linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
 	width: 100%; !important
 	height: auto;
 	padding-top: 25px;
 	padding-bottom: 25px;
+	margin: 0; !important
+}
+
+.text-border {
+	border: 3px solid #FFF;
+	max-width: 500px;
+	margin: 0 auto;
 }
 
 .label-bg {
 	background-color: #FFF;
 	width: 100%; !important
 	height: auto;
-	padding: 30px; !important
+	padding: 10px; !important
 }
-
-
-
 
 .form-signin {
 	max-width: 330px;
 	padding: 15px;
 	margin: 0 auto;
 }
-
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
 	margin-bottom: 10px;
@@ -69,7 +186,6 @@ h2 {
 }
 .form-signin .form-control:focus {
 	z-index: 2;
-	
 }
 .form-signin .top-element {
 	margin-bottom: -1px;
@@ -81,11 +197,30 @@ h2 {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
-
 .form-signin .middle-element {
 	margin-bottom: -1px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
+}
+
+.form-control {
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #fff;
+	border-radius: 20px;
+}
+.form-control:focus {
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
 }

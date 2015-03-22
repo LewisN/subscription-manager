@@ -1,5 +1,5 @@
 body {
-	background-color: #efefef;	
+	background-color: #efefef;
 }
 
 @font-face {
@@ -17,15 +17,17 @@ body {
 	src: url('../fonts/SourceSansPro-Bold.otf');
 }
 
-p, a {
+@import url(http://fonts.googleapis.com/css?family=Arimo:400,700);
+
+p,
+a {
 	font-family: SourceSansReg, sans-serif;
 	margin: 0;
 }
 
 div.nav nav.right a p.navtext {
-	font-family: CoText Reg, sans-serif; !important
-	letter-spacing: 6px; !important !important
-	text-decoration: underline;
+	!important letter-spacing: 6px;
+	!important !important text-decoration: underline;
 }
 
 a {
@@ -33,7 +35,7 @@ a {
 }
 
 a:hover {
-	color: #F7941E;	
+	color: #F7941E;
 	text-decoration: none;
 	-webkit-transition: color ease-in 0.2s;
 	-moz-transition: color ease-in 0.2s;
@@ -41,28 +43,56 @@ a:hover {
 	transition: color ease-in 0.2s;
 }
 
-h3  {
-	font-family: Questrial, sans-serif; 
+h3 {
+	font-family: Questrial, sans-serif;
 	color: #FFF;
-	letter-spacing: 5px; !important
+	letter-spacing: 5px;
+	!important
 }
 
 h4 {
-	font-family: SourceSansReg, sans-serif; 
+	font-family: SourceSansReg, sans-serif;
 	list-style: none;
-	margin: 0; !important
-	font-size: 10px; !important
+	margin: 0;
+	!important font-size: 10px;
+	!important
 }
 
 h3 small {
-	color: #FFF;	
+	color: #FFF;
 	opacity: 0.7;
+}
+
+h3 shrink {
+	color: #000;
+	font-weight: normal;
+	line-height: 1;
+	font-size: 65%;
+	font-family: 
+}
+
+.jumbo-header {
+	background: -webkit-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
+	background: -o-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
+	background: -moz-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
+	background: linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
+	width: 100%;
+	!important height: auto;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin: 0;
+	!important
+}
+
+.small-header {
+	display: none;
 }
 
 .main-container {
 	max-width: 800px;
 	margin: 0 auto;
-	width: 100%; !important
+	width: 100%;
+	!important
 }
 
 .inline {
@@ -74,7 +104,6 @@ h3 small {
 	height: 20px;
 	padding: 10px;
 	letter-spacing: 2px;
-	font-family: CoText Reg;
 	font-size: 0.85em
 }
 
@@ -87,11 +116,13 @@ h3 small {
 .nav-bottom-fixed > li {
 	text-align: center;
 }
-.nav-bottom-fixed > li > a {
-}
+
+.nav-bottom-fixed > li > a {}
+
 .nav-bottom-fixed > li + li {
 	margin-left: 2px;
 }
+
 .nav-bottom-fixed > li.active > a,
 .nav-bottom-fixed > li.active > a:hover,
 .nav-bottom-fixed > li.active > a:focus {
@@ -100,27 +131,77 @@ h3 small {
 	padding: 20px;
 }
 
+@media (max-device-width: 480px) {
+	.nav {
+		bottom: 0px;
+		!important position: absolute;
+		!important min-width: 100%;
+		!important
+	}
+	.nav-bottom-fixed > li {
+		bottom: 0px;
+		!important position: fixed;
+		!important min-width: 100%;
+		!important
+	}
+	.nav-bottom-fixed > li > a {
+		bottom: 0px;
+		!important position: fixed;
+		!important min-width: 100%;
+		!important
+	}
+	.nav-bottom-fixed > li + li {
+		bottom: 0px;
+		!important position: fixed;
+		!important min-width: 100%;
+		!important
+	}
+	.nav-bottom-fixed > li.active > a,
+	.nav-bottom-fixed > li.active > a:hover,
+	.nav-bottom-fixed > li.active > a:focus {
+		position: fixed;
+		min-width: 100%;
+		bottom: 0px;
+		!important
+	}
+}
 
 .list-group {
 	padding-left: 0;
 	margin-bottom: 20px;
 }
+
 .list-group-item {
-	color: #FFF; !important
-	background: none;
-	border: none; 
-	border-bottom: 2px solid #BCBCBC;	
-	font-family: SourceSansBold, sans-serif; 
-	font-size: 20px; !important
+	color: #FFF;
+	!important background: none;
+	border: none;
+	border-bottom: 2px solid #BCBCBC;
+	font-family: SourceSansBold, sans-serif;
+	font-size: 20px;
+	!important
 }
 
 .list-group-item:last-child {
 	margin-bottom: 10%;
-	border: none; !important
+	border: none;
+	!important
 }
 
+ul#service-table li {
+	padding: 0px;
+	/*Overrides list-group-item class padding*/
+}
 
-
+ul#service-table li a {
+	margin: 0x;
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 10px 15px;
+	font-family: SourceSansBold, sans-serif;
+	text-decoration: none;
+	text-transform: uppercase;
+}
 
 .right {
 	float: right;
@@ -131,24 +212,17 @@ h3 small {
 }
 
 .vertical-center {
-	min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-	min-height: 100vh; /* These two lines are counted as one :-)       */
+	min-height: 100%;
+	/* Fallback for browsers do NOT support vh unit */
+	
+	min-height: 100vh;
+	/* These two lines are counted as one :-)       */
+	
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-.jumbo-header {
-	background: -webkit-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
-	background: -o-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
-	background: -moz-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
-	background: linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
-	width: 100%; !important
-	height: auto;
-	padding-top: 25px;
-	padding-bottom: 25px;
-	margin: 0; !important
-}
 
 .text-border {
 	border: 3px solid #FFF;
@@ -158,9 +232,10 @@ h3 small {
 
 .label-bg {
 	background-color: #FFF;
-	width: 100%; !important
-	height: auto;
-	padding: 10px; !important
+	width: 100%;
+	!important height: auto;
+	padding: 10px;
+	!important
 }
 
 .form-signin {
@@ -168,13 +243,16 @@ h3 small {
 	padding: 15px;
 	margin: 0 auto;
 }
+
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
 	margin-bottom: 10px;
 }
+
 .form-signin .checkbox {
 	font-weight: normal;
 }
+
 .form-signin .form-control {
 	position: relative;
 	height: auto;
@@ -184,19 +262,23 @@ h3 small {
 	padding: 10px;
 	font-size: 16px;
 }
+
 .form-signin .form-control:focus {
 	z-index: 2;
 }
+
 .form-signin .top-element {
 	margin-bottom: -1px;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 }
+
 .form-signin .bottom-element {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
+
 .form-signin .middle-element {
 	margin-bottom: -1px;
 	border-top-left-radius: 0;
@@ -218,9 +300,10 @@ h3 small {
 	border: 1px solid #fff;
 	border-radius: 20px;
 }
+
 .form-control:focus {
 	border-color: #66afe9;
 	outline: 0;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
 }

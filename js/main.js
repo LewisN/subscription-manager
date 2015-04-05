@@ -15,11 +15,19 @@ angular.module('subApp', [])
 		
 		//Checks if user is logged in and loads relevant page on refresh
 		var currentUser = Parse.User.current();
-		if (currentUser) {
-			$scope.state = 'Overview';
-		} else {
-			$scope.state = 'Log in';
-		}
+		
+		var pageCheck = function () {
+			if (currentUser) {
+				$scope.state = 'Overview';
+				console.log('User is logged in');
+			} else {
+				$scope.state = 'Log in';
+				console.log('No user logged in');
+			}
+		};
+		
+		pageCheck();
+		
 
 		//Defining request to 'Services' table in db to be usable in all $scopes
 		var Services = Parse.Object.extend("Services");
@@ -51,20 +59,16 @@ angular.module('subApp', [])
 		};
 
 		returnServices(); //Function is called here so after login it runs again every page refresh
-
 		
-
 		//Logs user in
 		$scope.logIn = function (form) {
 			Parse.User.logIn(form.username, form.password, {
 				success: function (user) {
 					$scope.currentUser = user;
 					$scope.$apply();
-					$scope.state = 'Overview';
-					returnServices();
-					var logInState = true;
+					location.reload();				
 				},
-				error: function (user, error) {
+				error: function (user, error) { 
 					alert("Log in failed: " + error.message);
 				}
 			});
@@ -81,7 +85,7 @@ angular.module('subApp', [])
 				success: function (user) {
 					$scope.currentUser = user;
 					$scope.$apply();
-					$scope.state = 'Overview';
+					location.reload();				
 				},
 				error: function (user, error) {
 					alert("Sign up failed:  " + error.message);
@@ -120,8 +124,22 @@ angular.module('subApp', [])
 			});
 		};
 
-
-
+		//Sets 'next billing date' in newSub form to today's date and adjusts for timezone
+		Date.prototype.toDateInputValue = (function() {
+			var local = new Date(this);
+			local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+			return local.toJSON().slice(0,10);
+		});
+		$(document).ready( function() {
+			$('#inputRenewalDate').val(new Date().toDateInputValue());
+		});
+		
+		//Sets default value of renewal period to 1
+		$(document).ready( function() {
+			$('#inputRenewalPeriodMonthly').val(1);
+		});
+		
+		
 		//Adds new subscription details to Parse db
 		$scope.newSub = function (form) {
 			//var Services = Parse.Object.extend("Services");
@@ -145,6 +163,7 @@ angular.module('subApp', [])
 		};
 
 
+		
 /*  I.1 - SWITCHES HEADER TO SMALLER VERSION - DON'T USE UNTIL MOBILE ONLY
 		$(".minimiseHeader").click(function () {
 			$(".jumbo-header").fadeToggle(10);

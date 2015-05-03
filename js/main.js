@@ -12,10 +12,10 @@ angular.module('subApp', [])
 
 		//Sets first page to login and defines user
 		$scope.currentUser = Parse.User.current();
-		
+
 		//Checks if user is logged in and loads relevant page on refresh
 		var currentUser = Parse.User.current();
-		
+
 		var pageCheck = function () {
 			if (currentUser) {
 				$scope.state = 'Overview';
@@ -25,13 +25,15 @@ angular.module('subApp', [])
 				console.log('No user logged in');
 			}
 		};
-		
+
 		pageCheck();
-		
+
+
 
 		//Defining request to 'Services' table in db to be usable in all $scopes
 		var Services = Parse.Object.extend("Services");
 		var services = new Services();
+
 		//Function to return service names created by user - executed on Log in
 		var returnServices = function () {
 			var query = new Parse.Query(Services);
@@ -58,17 +60,59 @@ angular.module('subApp', [])
 			});
 		};
 
-		returnServices(); //Function is called here so after login it runs again every page refresh
-		
+
+		var returnTotalCost = function () {
+			var costMonthlyArray = [];
+			var query = new Parse.Query(Services);
+			query.exists("costMonthly");
+			query.find({
+				success: function (results) {
+					//Produces a total sum of all numbers in costMonthly column 
+					var sum = results.reduce(function (prev, cur) {
+						return prev + cur.get('costMonthly');
+					}, 0);
+					console.log("Total cost: " + sum);
+
+					//Checks if total fees exists and alters page content accordingly
+					if (sum == 0) {
+						(function ($) {
+							$('#total-cost').empty().append('<p class="large">You currently have no subscriptions to monitor</br></br>Try adding some</p>');
+						})(jQuery);
+					} else {
+						(function ($) {
+							$('#total-cost').empty().append('<p class="large">Your <strong>TOTAL</strong> subscription fees cost </p>' + '<p class="huge">£' + (sum.toFixed(2)) + '</p><p class="large"> per month</p>');
+						})(jQuery);
+					}
+
+
+				},
+				error: function (error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		};
+
+
+		var returnUpcomingRenewals = function () {
+
+
+		};
+
+
+
+
+		returnServices(); //Functions are called here so after login it runs again every page refresh
+		returnTotalCost();
+
 		//Logs user in
 		$scope.logIn = function (form) {
 			Parse.User.logIn(form.username, form.password, {
 				success: function (user) {
 					$scope.currentUser = user;
 					$scope.$apply();
-					location.reload();				
+					location.reload();
 				},
-				error: function (user, error) { 
+				error: function (user, error) {
 					alert("Log in failed: " + error.message);
 				}
 			});
@@ -85,7 +129,7 @@ angular.module('subApp', [])
 				success: function (user) {
 					$scope.currentUser = user;
 					$scope.$apply();
-					location.reload();				
+					location.reload();
 				},
 				error: function (user, error) {
 					alert("Sign up failed:  " + error.message);
@@ -124,8 +168,16 @@ angular.module('subApp', [])
 			});
 		};
 
+
+
+
+
+
+
+
+
 		//Sets 'next billing date' in newSub form to today's date and adjusts for timezone
-		Date.prototype.toDateInputValue = (function() {
+		/*Date.prototype.toDateInputValue = (function() {
 			var local = new Date(this);
 			local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
 			return local.toJSON().slice(0,10);
@@ -137,13 +189,20 @@ angular.module('subApp', [])
 		//Sets default value of renewal period to 1
 		$(document).ready( function() {
 			$('#inputRenewalPeriodMonthly').val(1);
-		});
-		
-		
+		});*/
+		//ISSUE WITH INJECTED DATA NOT BEING SUBMITTED TO SERVER
+
+
+		var clearForm = function () {
+			document.getElementById("newSubForm").reset();
+
+		};
+
+
 		//Adds new subscription details to Parse db
 		$scope.newSub = function (form) {
-			//var Services = Parse.Object.extend("Services");
-			//var services = new Services();
+			var Services = Parse.Object.extend("Services");
+			var services = new Services();
 			services.set("serviceName", form.serviceName);
 			services.set("costMonthly", form.costMonthly);
 			services.set("renewalPeriodMonthly", form.renewalPeriodMonthly);
@@ -154,6 +213,8 @@ angular.module('subApp', [])
 				success: function (services) {
 					console.log('New service added: ' + services.get("serviceName"));
 					returnServices();
+					returnTotalCost();
+					clearForm();
 				},
 				error: function (services, error) {
 					alert('Failed to create new object, with error code: ' + error.message);
@@ -163,17 +224,17 @@ angular.module('subApp', [])
 		};
 
 
-		
-/*  I.1 - SWITCHES HEADER TO SMALLER VERSION - DON'T USE UNTIL MOBILE ONLY
-		$(".minimiseHeader").click(function () {
-			$(".jumbo-header").fadeToggle(10);
-			$(".small-header").show(10);
-		});
 
-		$(".maximiseHeader").click(function () {
-			$(".jumbo-header").fadeToggle(10);
-			$(".small-header").hide(10);
-		});
-*/
+		/*  I.1 - SWITCHES HEADER TO SMALLER VERSION - DON'T USE UNTIL MOBILE ONLY
+				$(".minimiseHeader").click(function () {
+					$(".jumbo-header").fadeToggle(10);
+					$(".small-header").show(10);
+				});
+
+				$(".maximiseHeader").click(function () {
+					$(".jumbo-header").fadeToggle(10);
+					$(".small-header").hide(10);
+				});
+		*/
 
 	}]);

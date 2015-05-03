@@ -5,8 +5,6 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="Lewis Needham">
 	<link rel="icon" href="../../favicon.ico">
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -59,7 +57,7 @@
 				<input type="password" ng-model="user.password" id="inputPassword" class="form-control text-center" placeholder="Password" required autofocus>
 				</br>
 
-	<button ng-click="logIn(user)" class="btn btn-lg btn-primary btn-block" id="logInButton" type="submit">Log in</button>
+				<button ng-click="logIn(user)" class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
 				</br>
 				</br>
 				</br>
@@ -121,7 +119,9 @@
 
 				</br>
 				</br>
-				<p class="navtext text-center">You currently have no stats to track</p>
+				<p class="navtext text-center" id="total-cost">
+					<!-- returnTotalCost function (main.js) inserts relevant text-->
+				</p>
 
 			</div>
 
@@ -145,7 +145,9 @@
 
 				<ul class="nav nav-bottom-fixed">
 					<li role="presentation" class="active">
-						<a href="#" ng-click='state="AddSubForm"'><p class="large">Add subscription +</p></a>
+						<a href="#" ng-click='state="AddSubForm"'>
+							<p class="large">Add subscription +</p>
+						</a>
 					</li>
 				</ul>
 
@@ -157,29 +159,32 @@
 				<div class="main-nav">
 					<nav class="left">
 						<a href="#" ng-click='state="Services"'>
-							&lt; SERVICES
+							&lt; SUBSCRIPTIONS
 						</a>
 					</nav>
 				</div>
 				</br>
 
-				<div class="form-signin form-thin">
+				<form id="newSubForm">
 
-					<p class="large text-center bottom-padding">Service</p>
-					<label for="inputServiceName" class="sr-only">Service Name</label>
-					<input type="text" ng-model="services.serviceName" id="inputServiceName" class="form-control text-center" placeholder="Name" required autofocus>
-					</br>
-					<div class="form-group">
-						<label class="sr-only" for="inputCostMonthly">Subscription Fee</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-								<p class="large">£</p>
+					<div class="form-signin form-thin">
+
+						<p class="large text-center bottom-padding">Service</p>
+						<label for="inputServiceName" class="sr-only">Service Name</label>
+						<input type="text" ng-model="services.serviceName" id="inputServiceName" class="form-control text-center" placeholder="Name" required autofocus>
+						</br>
+						<div class="form-group">
+							<label class="sr-only" for="inputCostMonthly">Subscription Fee</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<p class="large">£</p>
+								</div>
+								<input type="number" class="form-control text-center" ng-model="services.costMonthly" id="inputCostMonthly" placeholder="Subscription fee" required autofocus>
 							</div>
-							<input type="number" class="form-control text-center" ng-model="services.costMonthly" id="inputCostMonthly" placeholder="Subscription fee" required autofocus>
 						</div>
-					</div>
 
-				</div>
+					</div>
+				</form>
 
 				</br>
 
@@ -195,12 +200,14 @@
 				</form>
 
 				</br>
+				<form id="newSubForm">
 
-				<div class="form-signin form-thin">
-					<p class="large text-center bottom-padding">Next billing date</p>
-					<label for="inputRenewalDate" class="sr-only">Next Billing Date</label>
-					<input type="date" ng-model="services.renewalDate" id="inputRenewalDate" class="form-control text-center" required autofocus>
-				</div>
+					<div class="form-signin form-thin">
+						<p class="large text-center bottom-padding">Next billing date</p>
+						<label for="inputRenewalDate" class="sr-only">Next Billing Date</label>
+						<input type="date" ng-model="services.renewalDate" id="inputRenewalDate" class="form-control text-center" required autofocus>
+					</div>
+				</form>
 
 
 				</br>
@@ -210,7 +217,9 @@
 
 				<ul class="nav nav-bottom-fixed">
 					<li role="presentation" class="active">
-						<a href="#" type="submit" ng-click="newSub(services)"><p class="large">Confirm</p></a>
+						<a href="#" type="submit" ng-click="newSub(services)">
+							<p class="large">Confirm</p>
+						</a>
 					</li>
 				</ul>
 

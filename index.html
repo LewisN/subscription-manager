@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="../../favicon.ico">
+	<link rel="icon" href="#">
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -101,7 +101,7 @@
 	<!--SPLASH PAGE----------------------------------------------------------------------------------------->
 	<div ng-show="currentUser" class="container-fluid">
 		<div class="label-bg text-center">
-			<a href="#" ng-click="logOut(user)">Log out</a>
+			<h4 class="form-signin-heading"><a href="#" ng-click="logOut(user)">LOG OUT</a></h4>
 		</div>
 
 
@@ -120,8 +120,36 @@
 				</br>
 				</br>
 				<p class="navtext text-center" id="total-cost">
-					<!-- returnTotalCost function (main.js) inserts relevant text-->
+					<p class="shownUntilInvalid large">You currently have no subscriptions to monitor</br>
+						</br>Try adding some</p>
+
+					<p class="hiddenUntilValid large">
+						Your <strong>TOTAL</strong> subscription fee cost is:
+					</p>
+					<p class="hiddenUntilValid huge" id="totalCostValue">
+						<!--js calculates and inserts total subscription cost-->
+					</p>
+				
+					<div class="hiddenUntilValid half-container" id="totalCostButtons">
+						<div class="btn-group btn-group-justified" role="group" aria-label="...">
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-default" id="totalMonthlyCost">Monthly</button>
+							</div>
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-default" id="totalYearlyCost">Yearly</button>
+							</div>
+						</div>
+					</div>
 				</p>
+
+</br></br></br></br>
+<p class="hiddenUntilValid large">
+	Upcoming renewal dates:
+</p>
+
+
+
+
 
 			</div>
 
@@ -139,8 +167,14 @@
 				</br>
 
 				<ul class="list-group text-center" id="service-table">
-					<!-- returnServices function (main.js) populates with list items for current users services-->
+					<!-- returnServices function (main.js) populates with list items for current users services-->	
 				</ul>
+
+
+<button id="testButton">Toggle slideUp() and slideDown()</button>
+<p id="testPara">This is a paragraph.</p>
+
+
 
 
 				<ul class="nav nav-bottom-fixed">

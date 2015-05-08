@@ -19,6 +19,17 @@ body {
 
 @import url(http://fonts.googleapis.com/css?family=Arimo:400,700);
 
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+display:  none;
+}
+
+#dropList {
+	height 50px;
+	width: 100px;
+	color: red;
+	background-color: red;
+}
+
 p,
 a {
 	font-family: SourceSansReg, sans-serif;
@@ -29,6 +40,7 @@ p.huge {
 	font-family: SourceSansBold, sans-serif;
 	font-size: 7.1em; 
 	margin: -3%;
+	text-align: center;
 }
 
 p.large {
@@ -36,12 +48,20 @@ p.large {
 	font-family: SourceSansReg, sans-serif;
 	list-style: none;
 	margin: 0; 
+	text-align: center;
 }
 
+p.larger {
+	font-size: 3em; 
+	font-family: SourceSanBold, sans-serif;
+	list-style: none;
+	margin: 0; 
+	text-align: right;
+}
 
 div.nav nav.right a p.navtext {
 	font-family: CoText Reg, sans-serif;
-	letter-spacing: 5px;
+	letter-spacing: 45px;
 	text-decoration: underline;
 }
 
@@ -68,7 +88,7 @@ h4 {
 	font-family: SourceSansReg, sans-serif;
 	list-style: none;
 	margin: 0;
-  font-size: 10px;
+  font-size: 1em;
 }
 
 h3 small {
@@ -104,6 +124,12 @@ h3 shrink {
 	max-width: 800px;
 	margin: 0 auto;
 	width: 100%; !important
+}
+
+.half-container {
+	max-width: 400px;
+	margin: 0 auto;
+	width: 100%;
 }
 
 .inline {

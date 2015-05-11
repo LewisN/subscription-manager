@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="css/animations.css">
 
-
 	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 	<script src="js/parse-1.4.2.min.js"></script>
 	<script src="js/angular.min.js"></script>
@@ -23,10 +22,6 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 </head>
-
-<!--
-	User reg code: http://popdevelop.com/2013/11/parse-com-and-angularjs-for-easy-setup-of-user-authentication/ 
-	-->
 
 <body ng-app="subApp">
 
@@ -40,12 +35,14 @@
 	</div>
 -->
 
+	<!-- pre sign-in container -->
 	<div ng-hide="currentUser" class="container-fluid">
 
 
-		<!--LOG IN PAGE----------------------------------------------------------------------------------------->
-		<form ng-show="state == 'Log in'">
+		<!--LOG IN PAGE------------------------------------------------------------------------------------>
 
+
+		<form ng-show="state == 'Log in'">
 			<div ng-show="state == 'Log in'" class="label-bg text-center">
 				<h4 class="form-signin-heading">LOG IN</h4>
 			</div>
@@ -65,14 +62,13 @@
 				<div class="text-center"><a href="#" ng-click='state="Sign up"'>Create account</a>
 				</div>
 			</div>
-
 		</form>
 
 
+		<!--SIGN UP PAGE----------------------------------------------------------------------------------->
 
-		<!--SIGN UP PAGE---------------------------------------------------------------------------------------->
+
 		<form ng-show="state == 'Sign up'">
-
 			<div class="label-bg text-center">
 				<h4 class="form-signin-heading">SIGN UP</h4>
 			</div>
@@ -97,19 +93,24 @@
 		</form>
 
 	</div>
-	<!-- /container -->
+	<!-- /pre sign-in container -->
 
-	<!--SPLASH PAGE----------------------------------------------------------------------------------------->
+
+	<!--UNDER HEADER BAR ------------------------------------------------------------------------------>
+
+
+	<!-- after sign-in container -->
 	<div ng-show="currentUser" class="container-fluid">
 		<div class="label-bg text-center">
 			<h4 class="form-signin-heading"><a href="#" ng-click="logOut(user)">LOG OUT</a></h4>
 		</div>
 
 
-		<!--OVERVIEW PAGE-------------------------------------------------------------------------------------->
+		<!--OVERVIEW PAGE-------------------------------------------------------------------------------->
+
+
 		<div class="main-container">
 			<div id="home" ng-show="state == 'Overview'">
-
 				<div class="main-nav">
 					<nav class="right">
 						<a href="#" class="minimiseHeader" ng-click='state="Services"'>
@@ -117,20 +118,17 @@
 						</a>
 					</nav>
 				</div>
-
 				</br>
 				</br>
 				<p class="navtext text-center" id="total-cost">
 					<p class="shownUntilInvalid large">You currently have no subscriptions to monitor</br>
 						</br>Try adding some</p>
-
 					<p class="hiddenUntilValid large">
 						Your <strong>TOTAL</strong> subscription fee cost is:
 					</p>
 					<p class="hiddenUntilValid huge" id="totalCostValue">
 						<!--js calculates and inserts total subscription cost-->
 					</p>
-
 					<div class="hiddenUntilValid half-container" id="totalCostButtons">
 						<div class="btn-group btn-group-justified" role="group" aria-label="...">
 							<div class="btn-group" role="group">
@@ -142,7 +140,6 @@
 						</div>
 					</div>
 				</p>
-
 				</br>
 				</br>
 				</br>
@@ -150,16 +147,10 @@
 				<p class="hiddenUntilValid large">
 					Upcoming renewal dates:
 				</p>
-
-
-
-
-
 			</div>
 
 			<!--SERVICES PAGE------------------------------------------------------------------------------------>
 			<div ng-show="state == 'Services'" onload="returnServices()" class="slideLeft">
-
 				<div class="main-nav">
 					<nav class="left">
 						<a href="#" class="maximiseHeader" ng-click='state="Overview"'>
@@ -167,14 +158,10 @@
 						</a>
 					</nav>
 				</div>
-
 				</br>
-
 				<ul class="list-group text-center" id="service-table">
 					<!-- returnServices function (main.js) populates with list items for current users services-->
 				</ul>
-
-
 				<ul class="nav nav-bottom-fixed">
 					<li role="presentation" class="active">
 						<a href="#" ng-click='state="AddSubForm"'>
@@ -182,12 +169,10 @@
 						</a>
 					</li>
 				</ul>
-
 			</div>
 
 			<!--ADD SUBSCRIPTION PAGE---------------------------------------------------------------------------->
 			<div ng-show="state == 'AddSubForm'" class="pullUp">
-
 				<div class="main-nav">
 					<nav class="left">
 						<a href="#" ng-click='state="Services"'>
@@ -196,11 +181,8 @@
 					</nav>
 				</div>
 				</br>
-
 				<form id="newSubForm">
-
 					<div class="form-signin form-thin">
-
 						<p class="large text-center bottom-padding">Service</p>
 						<label for="inputServiceName" class="sr-only">Service Name</label>
 						<input type="text" ng-model="services.serviceName" id="inputServiceName" class="form-control text-center" placeholder="Name" required autofocus>
@@ -214,39 +196,28 @@
 								<input type="number" class="form-control text-center" ng-model="services.costMonthly" id="inputCostMonthly" placeholder="Subscription fee" required autofocus>
 							</div>
 						</div>
-
 					</div>
 				</form>
-
 				</br>
-
 				<form class="form-inline text-center renew-form">
 					<label for="inputRenewalPeriodMonthly" class="sr-only">Renewal Period Monthly</label>
 					<div class="form-group">
 						<p class="large inline">Renews every&nbsp;&nbsp;</p>
-
 						<input type="number" value="1" min="1" max="24" ng-model="services.renewalPeriodMonthly" id="inputRenewalPeriodMonthly" class="form-control-static square text-center inline" required autofocus>
-
 						<p class="large inline">&nbsp;&nbsp;month(s)</p>
 					</div>
 				</form>
-
 				</br>
 				<form id="newSubForm">
-
 					<div class="form-signin form-thin">
 						<p class="large text-center bottom-padding">Next billing date</p>
 						<label for="inputRenewalDate" class="sr-only">Next Billing Date</label>
 						<input type="date" ng-model="services.renewalDate" id="inputRenewalDate" class="form-control text-center" required autofocus>
 					</div>
 				</form>
-
-
 				</br>
 				</br>
 				</br>
-
-
 				<ul class="nav nav-bottom-fixed">
 					<li role="presentation" class="active">
 						<a href="#" type="submit" ng-click="newSub(services)">
@@ -254,19 +225,16 @@
 						</a>
 					</li>
 				</ul>
-
 			</div>
-			<!--  -----------------------------------------------------------------------------------------    -->
+
+
+			<!------------------------------------------------------------------------------------------->
 
 
 		</div>
-		<!-- /container -->
+		<!-- /after sign-in container -->
 	</div>
-
 </body>
-<!--
-	END User reg code
-	-->
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>

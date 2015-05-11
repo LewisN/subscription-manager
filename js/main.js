@@ -14,19 +14,6 @@ angular.module('subApp', [])
 		$scope.currentUser = Parse.User.current();
 		var currentUser = Parse.User.current();
 
-		//Function to checks if user is logged in and loads relevant page on refresh
-		var pageCheck = function () {
-			if (currentUser) {
-				$scope.state = 'Overview';
-				console.log('User is logged in');
-			} else {
-				$scope.state = 'Log in';
-				console.log('No user logged in');
-			}
-		};
-		pageCheck(); //execute
-
-
 		//Defining request to 'Services' table in db to be usable in all $scopes
 		var Services = Parse.Object.extend("Services");
 		var services = new Services();
@@ -126,12 +113,21 @@ angular.module('subApp', [])
 			});
 		};
 
+		//Function to checks if user is logged in and loads relevant page on refresh
+		var pageCheck = function () {
+			if (currentUser) {
+				$scope.state = 'Overview';
+				console.log('User is logged in');
+				//Data handling functions are called here so after login they run again every page refresh
+				returnServices();
+				returnTotalCost();
+			} else {
+				$scope.state = 'Log in';
+				console.log('No user logged in');
+			}
+		};
+		pageCheck(); //execute
 
-		var returnUpcomingRenewals = function () {};
-
-
-		returnServices(); //Functions are called here so after login they run again every page refresh
-		returnTotalCost();
 
 		//Logs user in
 		$scope.logIn = function (form) {
@@ -142,7 +138,15 @@ angular.module('subApp', [])
 					location.reload();
 				},
 				error: function (user, error) {
-					alert("Log in failed: " + error.message);
+					if (error.code === Parse.Error.USERNAME_MISSING) {
+						alert("Please enter your username!");
+					} else if (error.code === Parse.Error.PASSWORD_MISSING) {
+						alert("Please enter your password!");
+					} else if (error.code === Parse.Error.CONNECTION_FAILED) {
+						alert("Sorry, we couldn't log you in. Check your internet connection.");
+					} else {
+						alert("Log in failed: " + error.message);
+					}
 				}
 			});
 		};
@@ -161,7 +165,13 @@ angular.module('subApp', [])
 					location.reload();
 				},
 				error: function (user, error) {
-					alert("Sign up failed:  " + error.message);
+					if (error.code === Parse.Error.USERNAME_TAKEN) {
+						alert("Sorry, that username is already taken!");
+					} else if (error.code === Parse.Error.CONNECTION_FAILED) {
+						alert("Sorry, we couldn't log you in. Check your internet connection.");
+					} else {
+						alert("Sign up failed: " + error.message);
+					}
 				}
 			});
 		};

@@ -19,15 +19,17 @@ body {
 
 @import url(http://fonts.googleapis.com/css?family=Arimo:400,700);
 
-.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
-display:  none;
-}
-
-#dropList {
-	height 50px;
-	width: 100px;
-	color: red;
-	background-color: red;
+.remove-focus:focus,
+.remove-focus:active:focus,
+.remove-focus.active:focus,
+.remove-focus.focus,
+.remove-focus:active.focus,
+.remove-focus.active.focus {
+	outline: none;
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 p,
@@ -38,24 +40,24 @@ a {
 
 p.huge {
 	font-family: SourceSansBold, sans-serif;
-	font-size: 7.1em; 
+	font-size: 7.1em;
 	margin: -3%;
 	text-align: center;
 }
 
 p.large {
-	font-size: 1.1em; 
+	font-size: 1.1em;
 	font-family: SourceSansReg, sans-serif;
 	list-style: none;
-	margin: 0; 
+	margin: 0;
 	text-align: center;
 }
 
 p.larger {
-	font-size: 3em; 
+	font-size: 3em;
 	font-family: SourceSanBold, sans-serif;
 	list-style: none;
-	margin: 0; 
+	margin: 0;
 	text-align: right;
 }
 
@@ -88,7 +90,7 @@ h4 {
 	font-family: SourceSansReg, sans-serif;
 	list-style: none;
 	margin: 0;
-  font-size: 1em;
+	font-size: 1em;
 }
 
 h3 small {
@@ -101,7 +103,7 @@ h3 shrink {
 	font-weight: normal;
 	line-height: 1;
 	font-size: 65%;
-	font-family: 
+	font-family:
 }
 
 .jumbo-header {
@@ -109,11 +111,12 @@ h3 shrink {
 	background: -o-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
 	background: -moz-linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
 	background: linear-gradient(#F7A42C, #F7A42C 50%, #F7941E 50%, #F7941E);
-	width: 100%; !important 
-	height: auto;
+	width: 100%;
+	!important height: auto;
 	padding-top: 25px;
 	padding-bottom: 25px;
-	margin: 0; !important
+	margin: 0;
+	!important
 }
 
 .small-header {
@@ -123,7 +126,8 @@ h3 shrink {
 .main-container {
 	max-width: 800px;
 	margin: 0 auto;
-	width: 100%; !important
+	width: 100%;
+	!important
 }
 
 .half-container {
@@ -170,31 +174,36 @@ h3 shrink {
 
 @media (max-device-width: 480px) {
 	.nav {
-		bottom: 0px; !important
-		position: absolute; !important
-		min-width: 100%; !important
+		bottom: 0px;
+		!important position: absolute;
+		!important min-width: 100%;
+		!important
 	}
 	.nav-bottom-fixed > li {
-		bottom: 0px; !important
-		position: fixed; !important 
-		min-width: 100%; !important
+		bottom: 0px;
+		!important position: fixed;
+		!important min-width: 100%;
+		!important
 	}
 	.nav-bottom-fixed > li > a {
-		bottom: 0px; !important 
-		position: fixed; !important 
-		min-width: 100%; !important
+		bottom: 0px;
+		!important position: fixed;
+		!important min-width: 100%;
+		!important
 	}
 	.nav-bottom-fixed > li + li {
-		bottom: 0px; !important 
-		position: fixed; !important 
-		min-width: 100%; !important
+		bottom: 0px;
+		!important position: fixed;
+		!important min-width: 100%;
+		!important
 	}
 	.nav-bottom-fixed > li.active > a,
 	.nav-bottom-fixed > li.active > a:hover,
 	.nav-bottom-fixed > li.active > a:focus {
 		position: fixed;
 		min-width: 100%;
-		bottom: 0px; !important
+		bottom: 0px;
+		!important
 	}
 }
 
@@ -204,17 +213,19 @@ h3 shrink {
 }
 
 .list-group-item {
-	color: #FFF; !important 
-	background: none;
+	color: #FFF;
+	!important background: none;
 	border: none;
 	border-bottom: 2px solid #BCBCBC;
 	font-family: SourceSansBold, sans-serif;
-	font-size: 20px; !important
+	font-size: 20px;
+	!important
 }
 
 .list-group-item:last-child {
 	margin-bottom: 10%;
-	border: none; !important
+	border: none;
+	!important
 }
 
 ul#service-table li {
@@ -244,13 +255,14 @@ ul#service-table li a {
 .vertical-center {
 	min-height: 100%;
 	/* Fallback for browsers do NOT support vh unit */
+
 	min-height: 100vh;
 	/* These two lines are counted as one :-)       */
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
-
 
 .text-border {
 	border: 3px solid #FFF;
@@ -260,13 +272,14 @@ ul#service-table li a {
 
 .label-bg {
 	background-color: #FFF;
-	width: 100%; !important 
-	height: auto;
-	padding: 10px; !important
+	width: 100%;
+	!important height: auto;
+	padding: 10px;
+	!important
 }
 
 .form-thin {
-	max-width:  250px;
+	max-width: 250px;
 	margin: 0 auto;
 }
 
@@ -335,8 +348,8 @@ ul#service-table li a {
 }
 
 .square {
-	border-radius: 10px; !important
-	height: 34px;
+	border-radius: 10px;
+	!important height: 34px;
 	padding: 0;
 	font-size: 14px;
 	line-height: 1.42857143;
@@ -348,8 +361,7 @@ ul#service-table li a {
 	font-family: SourceSansBold, sans-serif;
 }
 
-input[type=date]
-{
+input[type=date] {
 	-webkit-appearance: none;
 }
 
@@ -362,7 +374,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
 	-webkit-appearance: none;
 }
 
-
 .renew-form input[type=number]::-webkit-inner-spin-button {
 	opacity: .5;
 }
@@ -372,15 +383,14 @@ input[type=date]::-webkit-calendar-picker-indicator {
 	background: #FFF;
 	border-style: none;
 	border-radius: 20px;
-
 }
 
 .bottom-padding {
-padding-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 .fixedpos {
-float: left;	
-	position:absolute;
+	float: left;
+	position: absolute;
 	z-index: 4;
 }

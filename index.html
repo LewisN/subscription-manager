@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 	<script src="js/parse-1.4.2.min.js"></script>
 	<script src="js/angular.min.js"></script>
+	<script src="js/angular-touch.js"></script>
 	<script src="js/main.js"></script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -129,23 +130,26 @@
 					<p class="hiddenUntilValid huge" id="totalCostValue">
 						<!--js calculates and inserts total subscription cost-->
 					</p>
-				
+
 					<div class="hiddenUntilValid half-container" id="totalCostButtons">
 						<div class="btn-group btn-group-justified" role="group" aria-label="...">
 							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-default" id="totalMonthlyCost">Monthly</button>
+								<button type="button" class="btn btn-default remove-focus" id="totalMonthlyCost">Monthly</button>
 							</div>
 							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-default" id="totalYearlyCost">Yearly</button>
+								<button type="button" class="btn btn-default remove-focus" id="totalYearlyCost">Yearly</button>
 							</div>
 						</div>
 					</div>
 				</p>
 
-</br></br></br></br>
-<p class="hiddenUntilValid large">
-	Upcoming renewal dates:
-</p>
+				</br>
+				</br>
+				</br>
+				</br>
+				<p class="hiddenUntilValid large">
+					Upcoming renewal dates:
+				</p>
 
 
 
@@ -167,14 +171,8 @@
 				</br>
 
 				<ul class="list-group text-center" id="service-table">
-					<!-- returnServices function (main.js) populates with list items for current users services-->	
+					<!-- returnServices function (main.js) populates with list items for current users services-->
 				</ul>
-
-
-<button id="testButton">Toggle slideUp() and slideDown()</button>
-<p id="testPara">This is a paragraph.</p>
-
-
 
 
 				<ul class="nav nav-bottom-fixed">

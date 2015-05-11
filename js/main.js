@@ -10,8 +10,6 @@ Parse.initialize(PARSE_APP, PARSE_JS);
 angular.module('subApp', [])
 	.run(['$rootScope', function ($scope) {
 
-		
-		
 		//Sets first page to login and defines user
 		$scope.currentUser = Parse.User.current();
 		var currentUser = Parse.User.current();
@@ -27,7 +25,6 @@ angular.module('subApp', [])
 			}
 		};
 		pageCheck(); //execute
-
 
 
 		//Defining request to 'Services' table in db to be usable in all $scopes
@@ -50,7 +47,7 @@ angular.module('subApp', [])
 						var object = results[i];
 						//Inserts each retrived serviceName as a list item into the HTML
 						var fetchServiceName = object.get('serviceName');
-						
+
 						(function ($) {
 							$('#service-table').append('<li class="list-group-item"><a href="#" id="listItemService">' + fetchServiceName + '</a></li>');
 						})(jQuery);
@@ -120,11 +117,7 @@ angular.module('subApp', [])
 							$('#totalCostValue').empty().append('£' + (sum.toFixed(2)));
 						})
 
-
-
-
 					}
-
 
 				},
 				error: function (error) {
@@ -134,11 +127,7 @@ angular.module('subApp', [])
 		};
 
 
-
-
 		var returnUpcomingRenewals = function () {};
-
-
 
 
 		returnServices(); //Functions are called here so after login they run again every page refresh

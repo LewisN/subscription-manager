@@ -142,6 +142,7 @@ angular.module('subApp', [])
 									//alert(object.get('serviceName') + " deleted!");
 									returnServices(); //refreshes list after deletion
 									returnUpcomingRenewals();
+									returnTotalCost();
 								},
 								error: function (object, error) {
 									//alert("Could not delete " + object.get('serviceName') + "!");

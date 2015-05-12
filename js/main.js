@@ -18,62 +18,6 @@ angular.module('subApp', [])
 		var Services = Parse.Object.extend("Services");
 		var services = new Services();
 
-		//Function to return service names created by user - executed on Log in
-		var returnServices = function () {
-			var query = new Parse.Query(Services);
-			//Queries any existing objects in serviceName column
-			query.exists("serviceName");
-			query.find({
-				success: function (results) {
-					//clears current list
-					(function ($) {
-						$("#service-table li").remove();
-					})(jQuery);
-					//retrieves  new up-to-date list
-					for (var i = 0; i < results.length; i++) {
-						var object = results[i];
-
-						//Declares variable to stop apostrophes interfering with the append string below
-						var fetchServiceName = object.get('serviceName');
-						//Inserts each retrieved serviceName as a list item into the HTML
-						(function ($) {
-							$('#service-table').append('<li class="list-group-item" data-id='+i+'><span class="btn btn-delete badge delete fa fa-trash-o" data-id='+i+'> </span><a href="#" id="listItemService">' + fetchServiceName + '</a></li>');
-						})(jQuery);
-
-
-
-
-						//console.log(object.get('serviceName'));
-					}
-
-
-					//Delete function
-						(function($) {
-        		$('.delete').on('click', function(event) {
-            //Gets the value of the clicked delete button's data-id attribute
-            var dataID = $(event.target).attr('data-id');
-            //Finds the results item whose index is dataID
-            var object = results[dataID];
-            object.destroy({
-                success: function(object) {
-									//alert(object.get('serviceName') + " deleted!");
-									returnServices(); //refreshes list after deletion
-								},
-                error: function(object, error) {
-									//alert("Could not delete " + object.get('serviceName') + "!");
-								}
-            })
-						});
-    				})(jQuery);
-
-
-
-				},
-				error: function (error) {
-					alert("Error: " + error.code + " " + error.message);
-				}
-			});
-		};
 
 		//Function to return total cost of subscription fees
 		var returnTotalCost = function () {
@@ -112,15 +56,15 @@ angular.module('subApp', [])
 
 						//When 'Yearly' button is clicked
 						$('#totalYearlyCost').click(function () {
-							//Removes inactive class from yearly button
-							document.getElementById("totalYearlyCost").className =
-								document.getElementById("totalYearlyCost").className.replace(/(?:^|\s)btn-default(?!\S)/g, '')
-								//And adds it to monthly button
-							document.getElementById('totalMonthlyCost').className += ' btn-default';
-							//Multiplies monthly total by 12
-							$('#totalCostValue').empty().append('£' + (sum * 12).toFixed(2));
-						})
-						//When 'Monthly' button is clicked
+								//Removes inactive class from yearly button
+								document.getElementById("totalYearlyCost").className =
+									document.getElementById("totalYearlyCost").className.replace(/(?:^|\s)btn-default(?!\S)/g, '')
+									//And adds it to monthly button
+								document.getElementById('totalMonthlyCost').className += ' btn-default';
+								//Multiplies monthly total by 12
+								$('#totalCostValue').empty().append('£' + (sum * 12).toFixed(2));
+							})
+							//When 'Monthly' button is clicked
 						$('#totalMonthlyCost').click(function () {
 							//Removes inactive class from monthly button
 							document.getElementById("totalMonthlyCost").className =
@@ -143,8 +87,74 @@ angular.module('subApp', [])
 
 		var returnUpcomingRenewals = function () {
 			var query = new Parse.Query(Services);
-
+			var d = new Date();
+			var start = new moment(d);
+			start.startOf('day');
+			// from the start of the date (inclusive)
+			query.greaterThanOrEqualTo('renewalDate', start.toDate());
+			query.limit(3);
+			query.find({
+				success: function (results) {
+					console.log(results);
+					$('#upcomingService').empty();
+					for (var i = 0; i < results.length; i++) {
+						var object = results[i];
+						$('#upcomingService').append('<tr><td style="width: 33%"><p><strong>' + object.get('serviceName') + '</strong></p></td><td style="width: 33%"><p>' + object.get('renewalDate') + '</p></td><td style="width: 33%"><p>' + '£' + object.get('costMonthly').toFixed(2) + '</tr>');
+					}
+				}
+			});
 		};
+
+
+		//Function to return service names created by user - executed on Log in
+		var returnServices = function () {
+			var query = new Parse.Query(Services);
+			//Queries any existing objects in serviceName column
+			query.exists("serviceName");
+			query.find({
+				success: function (results) {
+					//clears current list
+					(function ($) {
+						$("#service-table li").remove();
+					})(jQuery);
+					//retrieves  new up-to-date list
+					for (var i = 0; i < results.length; i++) {
+						var object = results[i];
+
+						//Declares variable to stop apostrophes interfering with the append string below
+						var fetchServiceName = object.get('serviceName');
+						//Inserts each retrieved serviceName as a list item into the HTML
+						(function ($) {
+							$('#service-table').append('<li class="list-group-item" data-id=' + i + '><span class="btn btn-delete badge delete fa fa-trash-o" data-id=' + i + '> </span><a href="#" id="listItemService">' + fetchServiceName + '</a></li>');
+						})(jQuery);
+					}
+					//Delete function
+					(function ($) {
+						$('.delete').on('click', function (event) {
+							//Gets the value of the clicked delete button's data-id attribute
+							var dataID = $(event.target).attr('data-id');
+							//Finds the results item whose index is dataID
+							var object = results[dataID];
+							object.destroy({
+								success: function (object) {
+									//alert(object.get('serviceName') + " deleted!");
+									returnServices(); //refreshes list after deletion
+									returnUpcomingRenewals();
+								},
+								error: function (object, error) {
+									//alert("Could not delete " + object.get('serviceName') + "!");
+								}
+							})
+						});
+					})(jQuery);
+
+				},
+				error: function (error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		};
+
 
 		//Function to checks if user is logged in and loads relevant page on refresh
 		var pageCheck = function () {
@@ -154,6 +164,7 @@ angular.module('subApp', [])
 				//Data handling functions are called here so after login they run again every page refresh
 				returnServices();
 				returnTotalCost();
+				returnUpcomingRenewals();
 			} else {
 				$scope.state = 'Log in';
 				console.log('No user logged in');
@@ -226,7 +237,6 @@ angular.module('subApp', [])
 						(function ($) {
 							$('#service-table').append('<li class="list-group-item"><a href="#">' + object.get('serviceName') + '</a></li>');
 						})(jQuery);
-						console.log('Services returned: ' + object.get('serviceName'));
 					}
 				},
 				error: function (error) {
@@ -272,13 +282,14 @@ angular.module('subApp', [])
 					returnServices();
 					returnTotalCost();
 					clearForm();
+					returnUpcomingRenewals();
 				},
 				error: function (services, error) {
 					alert('Failed to create new object, with error code: ' + error.message);
 				}
 			});
 			$scope.state = 'Services';
-			};
+		};
 
 		/*  I.1 - SWITCHES HEADER TO SMALLER VERSION - DON'T USE UNTIL MOBILE ONLY
 				$(".minimiseHeader").click(function () {

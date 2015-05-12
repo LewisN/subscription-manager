@@ -54,10 +54,9 @@ p.huge {
 }
 
 .larger {
-	font-size: 1em;
+	font-size: 1.8em;
 	font-family: SourceSanBold, sans-serif;
 	list-style: none;
-	margin: 0;
 }
 
 div.nav nav.right a p.navtext {

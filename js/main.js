@@ -85,6 +85,7 @@ angular.module('subApp', [])
 			});
 		};
 
+		//Function to return services with most upcoming renewal dates
 		var returnUpcomingRenewals = function () {
 			var query = new Parse.Query(Services);
 			var d = new Date();
@@ -92,14 +93,15 @@ angular.module('subApp', [])
 			start.startOf('day');
 			// from the start of the date (inclusive)
 			query.greaterThanOrEqualTo('renewalDate', start.toDate());
-			query.limit(3);
+			query.limit(3);//limit number of services to 3
 			query.find({
 				success: function (results) {
 					console.log(results);
 					$('#upcomingService').empty();
 					for (var i = 0; i < results.length; i++) {
 						var object = results[i];
-						$('#upcomingService').append('<tr><td style="width: 33%"><p><strong>' + object.get('serviceName') + '</strong></p></td><td style="width: 33%"><p>' + object.get('renewalDate') + '</p></td><td style="width: 33%"><p>' + '£' + object.get('costMonthly').toFixed(2) + '</tr>');
+						var date = object.get('renewalDate');
+						$('#upcomingService').append('<tr><td style="width: 33%"><p><strong>' + object.get('serviceName') + '</strong></p></td><td style="width: 33%"><p>' + moment(date).format("dddd Do MMM") + '</p></td><td style="width: 33%"><p>' + '£' + object.get('costMonthly').toFixed(2) + '</tr>');//moment.js used to format data
 					}
 				}
 			});

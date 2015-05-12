@@ -29,17 +29,45 @@ angular.module('subApp', [])
 					(function ($) {
 						$("#service-table li").remove();
 					})(jQuery);
-					//retrives new up to date list
+					//retrieves  new up-to-date list
 					for (var i = 0; i < results.length; i++) {
 						var object = results[i];
-						//Inserts each retrived serviceName as a list item into the HTML
-						var fetchServiceName = object.get('serviceName');
 
+						//Declares variable to stop apostrophes interfering with the append string below
+						var fetchServiceName = object.get('serviceName');
+						//Inserts each retrieved serviceName as a list item into the HTML
 						(function ($) {
-							$('#service-table').append('<li class="list-group-item"><a href="#" id="listItemService">' + fetchServiceName + '</a></li>');
+							$('#service-table').append('<li class="list-group-item" data-id='+i+'><span class="btn btn-delete badge delete fa fa-trash-o" data-id='+i+'> </span><a href="#" id="listItemService">' + fetchServiceName + '</a></li>');
 						})(jQuery);
+
+
+
+
 						//console.log(object.get('serviceName'));
 					}
+
+
+					//Delete function
+						(function($) {
+        		$('.delete').on('click', function(event) {
+            //Gets the value of the clicked delete button's data-id attribute
+            var dataID = $(event.target).attr('data-id');
+            //Finds the results item whose index is dataID
+            var object = results[dataID];
+            object.destroy({
+                success: function(object) {
+									//alert(object.get('serviceName') + " deleted!");
+									returnServices(); //refreshes list after deletion
+								},
+                error: function(object, error) {
+									//alert("Could not delete " + object.get('serviceName') + "!");
+								}
+            })
+						});
+    				})(jQuery);
+
+
+
 				},
 				error: function (error) {
 					alert("Error: " + error.code + " " + error.message);
@@ -92,7 +120,6 @@ angular.module('subApp', [])
 							//Multiplies monthly total by 12
 							$('#totalCostValue').empty().append('£' + (sum * 12).toFixed(2));
 						})
-
 						//When 'Monthly' button is clicked
 						$('#totalMonthlyCost').click(function () {
 							//Removes inactive class from monthly button
@@ -105,12 +132,18 @@ angular.module('subApp', [])
 						})
 
 					}
-
 				},
+
+				//Error returning query on exists.costMonthly
 				error: function (error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
+		};
+
+		var returnUpcomingRenewals = function () {
+			var query = new Parse.Query(Services);
+
 		};
 
 		//Function to checks if user is logged in and loads relevant page on refresh
@@ -127,7 +160,6 @@ angular.module('subApp', [])
 			}
 		};
 		pageCheck(); //execute
-
 
 		//Logs user in
 		$scope.logIn = function (form) {
@@ -150,7 +182,6 @@ angular.module('subApp', [])
 				}
 			});
 		};
-
 
 		//Lets user register and saves account in Parse db
 		$scope.signUp = function (form) {
@@ -176,15 +207,12 @@ angular.module('subApp', [])
 			});
 		};
 
-
 		//Logs current user out and goes back to login page
 		$scope.logOut = function (form) {
 			Parse.User.logOut();
 			$scope.currentUser = null;
 			$scope.state = 'Log in';
 		};
-
-
 
 		//Function to return most the single recent service added by user - executed upon adding new service
 		var returnNewService = function () {
@@ -208,13 +236,6 @@ angular.module('subApp', [])
 		};
 
 
-
-
-
-
-
-
-
 		//Sets 'next billing date' in newSub form to today's date and adjusts for timezone
 		/*Date.prototype.toDateInputValue = (function() {
 			var local = new Date(this);
@@ -231,12 +252,9 @@ angular.module('subApp', [])
 		});*/
 		//ISSUE WITH INJECTED DATA NOT BEING SUBMITTED TO SERVER
 
-
 		var clearForm = function () {
 			document.getElementById("newSubForm").reset();
-
 		};
-
 
 		//Adds new subscription details to Parse db
 		$scope.newSub = function (form) {
@@ -260,9 +278,7 @@ angular.module('subApp', [])
 				}
 			});
 			$scope.state = 'Services';
-		};
-
-
+			};
 
 		/*  I.1 - SWITCHES HEADER TO SMALLER VERSION - DON'T USE UNTIL MOBILE ONLY
 				$(".minimiseHeader").click(function () {

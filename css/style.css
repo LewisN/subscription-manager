@@ -394,3 +394,14 @@ input[type=date]::-webkit-calendar-picker-indicator {
 	position: absolute;
 	z-index: 4;
 }
+
+.btn-delete {
+	background: none;
+	color: #000;
+	opacity: 0.5;
+	margin-top: 8px;!important
+}
+
+.btn-delete:hover {
+	color: #F7A42C;
+}

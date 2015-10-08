@@ -3,24 +3,34 @@ var PARSE_APP = "hDsnLQIJnntsfTgxiYXueyWwZ1kMFUdr0UUjyfIU";
 var PARSE_JS = "fPQ2l1NVewvTdAYZihOI9y9GrPYBx7sZE3etfclZ";
 
 
-//Verifies keys
+//Verify keys
 Parse.initialize(PARSE_APP, PARSE_JS);
 
-//Starts AngularJS app
+//Initiate AngularJS app
 angular.module('subApp', [])
 	.run(['$rootScope', function ($scope) {
 
 		//Sets first page to login and defines user
 		$scope.currentUser = Parse.User.current();
-		var currentUser = Parse.User.current();
+        var currentUser,
+            Services,
+            services,
+            returnTotalCost,
+            returnUpcomingRenewals,
+            returnServices,
+            pageCheck,
+            returnNewService,
+            clearForm;
+
+		currentUser = Parse.User.current();
 
 		//Defining request to 'Services' table in db to be usable in all $scopes
-		var Services = Parse.Object.extend("Services");
-		var services = new Services();
+		Services = Parse.Object.extend("Services");
+		services = new Services();
 
 
 		//Function to return total cost of subscription fees
-		var returnTotalCost = function () {
+		returnTotalCost = function () {
 			var query = new Parse.Query(Services);
 			//Queries any existing objects in costMonthly column
 			query.exists("costMonthly");
@@ -33,7 +43,7 @@ angular.module('subApp', [])
 					console.log("Total cost: " + sum);
 
 					//Checks if total fees exists and alters page content accordingly
-					if (sum == 0) {
+					if (sum === 0) {
 
 						//Hides elements if subscription fees don't exist				
 						$(".hiddenUntilValid").hide();
@@ -86,7 +96,7 @@ angular.module('subApp', [])
 		};
 
 		//Function to return services with most upcoming renewal dates
-		var returnUpcomingRenewals = function () {
+		returnUpcomingRenewals = function () {
 			var query = new Parse.Query(Services);
 			var d = new Date();
 			var start = new moment(d);
@@ -109,7 +119,7 @@ angular.module('subApp', [])
 
 
 		//Function to return service names created by user - executed on Log in
-		var returnServices = function () {
+		returnServices = function () {
 			var query = new Parse.Query(Services);
 			//Queries any existing objects in serviceName column
 			query.exists("serviceName");
@@ -160,7 +170,7 @@ angular.module('subApp', [])
 
 
 		//Function to checks if user is logged in and loads relevant page on refresh
-		var pageCheck = function () {
+		pageCheck = function () {
 			if (currentUser) {
 				$scope.state = 'Overview';
 				console.log('User is logged in');
@@ -229,7 +239,7 @@ angular.module('subApp', [])
 		};
 
 		//Function to return most the single recent service added by user - executed upon adding new service
-		var returnNewService = function () {
+		returnNewService = function () {
 			var query = new Parse.Query(Services);
 			query.exists("serviceName");
 			query.limit(1);
@@ -263,9 +273,9 @@ angular.module('subApp', [])
 		$(document).ready( function() {
 			$('#inputRenewalPeriodMonthly').val(1);
 		});*/
-		//ISSUE WITH INJECTED DATA NOT BEING SUBMITTED TO SERVER
+		//ISSUE WITH INJECTED DATA NOT BEING SUBMITTED TO SERVER - COMMENTED OUT UNTIL FIXED
 
-		var clearForm = function () {
+		clearForm = function () {
 			document.getElementById("newSubForm").reset();
 		};
 
@@ -294,7 +304,7 @@ angular.module('subApp', [])
 			$scope.state = 'Services';
 		};
 
-		/*  I.1 - SWITCHES HEADER TO SMALLER VERSION - DON'T USE UNTIL MOBILE ONLY
+		/*  SWITCHES HEADER TO SMALLER VERSION - DON'T USE UNTIL MOBILE ONLY
 				$(".minimiseHeader").click(function () {
 					$(".jumbo-header").fadeToggle(10);
 					$(".small-header").show(10);

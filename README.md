@@ -10,7 +10,6 @@ Calculates total cost of combined subscription fees for monthly and yearly perio
 //not yet correct, needs to be adjusted to take into account subscriptions that don't renew monthly  
 
 To add/fix:  
-Shows most upcoming renewal dates  
 Notify users of any subscriptions set to expire/renew soon (via push notifications on Android and iOS)  
 
 To maybe add:  
